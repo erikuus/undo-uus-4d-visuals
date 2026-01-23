@@ -10,9 +10,6 @@ description: >
 author: Erik Uus
 translator: GPT-5.2
 year: 2000
-language: en
-source: 4Dprojekt.docx
-based_on_oral_explanations_by: Undo Uus
 ---
 
 # Introduction

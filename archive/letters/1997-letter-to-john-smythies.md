@@ -7,11 +7,7 @@ description: >
   system can generate a genuinely four-dimensional spatial phenomenal field
   from dynamically changing projections.
 author: Undo Uus
-recipient: John Smythies
 date: 1997-09-04
-subject: mind--brain
-language: en
-source: 4D-smythies.doc
 ---
 
 From uus@cathy.obs.ee Thu Sep 4 15:13:03 1997

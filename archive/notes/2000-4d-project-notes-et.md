@@ -9,9 +9,6 @@ description: >
   own interpretations.
 author: Erik Uus
 year: 2000
-language: et
-source: 4Dprojekt.docx
-based_on_oral_explanations_by: Undo Uus
 ---
 
 # Sissejatus
