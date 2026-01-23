@@ -1,1 +1,9 @@
 .DS_Store
+web/dist
+web/node_modules
+web/.env
+web/.env.*
+web/.env.*.local
+web/.vite
+web/npm-debug.log*
+web/yarn-error.log
