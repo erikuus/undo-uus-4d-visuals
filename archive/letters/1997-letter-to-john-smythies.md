@@ -10,7 +10,7 @@ author: Undo Uus
 date: 1997-09-04
 ---
 
-From uus@cathy.obs.ee Thu Sep 4 15:13:03 1997<br>
+From: uus@cathy.obs.ee Thu Sep 4 15:13:03 1997<br>
 Subject: mind--brain<br>
 To: smythies@psy.ucsd.edu
 
