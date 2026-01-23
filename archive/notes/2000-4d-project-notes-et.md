@@ -106,9 +106,8 @@ Selle süsteemi puhul kutsutakse binokulaarne stereoskoopiline nägemine kunstli
 
 Me oleme võimelised tajuma kolmedimensionaalset kujutist selle kahedimensionaalse projektsiooni alusel. Aga kas ei võiks siis analoogia põhjal arvata, et me oleme võimelised tajuma ka neljadimensionaalset kujutist selle kolmedimensionaalse projektsiooni alusel? Ehk teisisõnu: kuna aju või hing suudab kahedimensionaalsest muutuvast kujutist analüüsides tuvastada, kui tegemist on kolmedimensionaalse objekti projektsiooniga, st. kuna aju või hing tunneb ära 3D-invariandi 2D-kujutise muutumises ja taastab selle põhjal tajus selgelt ja automaatselt kolmanda dimensiooni, siis pole välistatud, et aju või hing suudab ära tunda ka 4D-invariandi 3D-kujutise muutumises ja kutsuda selle põhjal esile neljadimensionaalse nägemisaistingu. See ei tarvitse tingimata nii olla, aga võib olla. Pole mingit mõjuvat põhjust, miks peaks arvama, et see on võimatu. Analoogia põhjal tundub see olevat tõenäoline (vt. tabel all). **Kindlasti on see piisavalt tõenäoline, et väärida katsetamist.**
 
-|                             |                                                 |                                                |
-| --------------------------- | ----------------------------------------------- | ---------------------------------------------- |
 |                             | **_Reaalne loomulik monokulaarne 3D nägemine_** | **_Hüpoteetiline kunstlik 4D nägemine_**       |
+| --------------------------- | ----------------------------------------------- | ---------------------------------------------- |
 | Baasinfo ajus               | Muutuv 2D nägemispilt, mis on 3D projektsioon.  | Muutuv 3D nägemispilt, mis on 4D projektsioon. |
 | Aju töötleb seda infot ja … | tunneb 2D muutustes ära 3D invariantsuse.       | tunneb 3D muutustes ära 4D invariantsuse.      |
 | Aju kutsub tajus esile      | 3D invariantsuse alusel 3D nägemisaistingu.     | 4D invariantsuse alusel 4D nägemisaistingu.    |

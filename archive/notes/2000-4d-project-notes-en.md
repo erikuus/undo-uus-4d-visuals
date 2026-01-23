@@ -1,12 +1,12 @@
 ---
 title: Four-dimensional vision project
 description: >
-	These notes were written in 2000 by Erik Uus following oral explanations by
-	Undo Uus. The text reflects the author’s understanding at the time and was
-	not reviewed or corrected by Undo Uus. The document is preserved unchanged
-	for historical purposes and to document the transmission of the original
-	idea. The text may contain simplifications, inaccuracies, or the author’s
-	own interpretations.
+  These notes were written in 2000 by Erik Uus following oral explanations by
+  Undo Uus. The text reflects the author’s understanding at the time and was
+  not reviewed or corrected by Undo Uus. The document is preserved unchanged
+  for historical purposes and to document the transmission of the original
+  idea. The text may contain simplifications, inaccuracies, or the author’s
+  own interpretations.
 author: Erik Uus
 translator: GPT-5.2
 year: 2000
