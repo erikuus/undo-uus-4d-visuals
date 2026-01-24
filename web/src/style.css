@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  background-color: #0b0b0b;
+  background-color: #080808;
   color: #e6e0d8;
   font-family: "Georgia", "Times New Roman", serif;
   line-height: 1.6;
@@ -12,7 +12,7 @@
 
 body {
   margin: 0;
-  background: #0b0b0b;
+  background: #080808;
 }
 
 /* Landing Page */
@@ -215,14 +215,25 @@ canvas {
   display: block;
   width: 100%;
   height: auto;
-  border: 1px solid #343434;
-  background: #0c0c0c;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(28, 28, 28, 1) 0%,
+    rgba(18, 18, 18, 1) 100%
+  );
+}
+
+.stereo-hint {
+  margin-top: 28px;
+  font-size: 0.8rem;
+  color: #6a6560;
+  font-style: italic;
+  line-height: 1.5;
 }
 
 footer {
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: #b8b1a7;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #6a6560;
 }
 
 /* Responsive */

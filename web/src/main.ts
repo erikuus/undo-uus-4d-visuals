@@ -112,6 +112,7 @@ function showVisualization(id: VisualizationId) {
       <h1>${vis.title}</h1>
       <p>${vis.description}</p>
       <canvas id="canvas"></canvas>
+      <p class="stereo-hint">For stereoscopic depth perception, view the left and right images using relaxed parallel gaze or cross-eye viewing.</p>
       <footer>Reconstruction of Undo Uus's QBasic experiment (1997–2000).</footer>
     </div>
   `;

@@ -67,7 +67,7 @@ export function createVisualization(canvas: HTMLCanvasElement): {
         scaleX,
         scaleY,
         palette: PALETTE,
-        background: "#000000",
+        background: "#080808",
       },
       xwAngle,
     );
