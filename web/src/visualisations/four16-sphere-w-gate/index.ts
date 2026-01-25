@@ -2,7 +2,7 @@ import { generateSpherePoints } from "./sphere4d";
 import { renderStereo } from "./renderer";
 
 const POINT_COUNT = 1000;
-const XW_ROTATION_STEP = 0.03; // Original DFXW
+const XW_ROTATION_STEP = 0.012; // Slowed from original DFXW=0.03
 const STEREO_HALF_ANGLE = 0.15 * 0.5; // FISTEREO * 0.5
 
 // Original QBasic palette colors (EGA indices 18, 36, 46, 61 approximated)

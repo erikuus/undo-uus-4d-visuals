@@ -4,8 +4,8 @@ import type { RotationState } from "./math4d";
 
 const TWO_PI = 2 * Math.PI;
 
-// Original rotation speeds from QBasic (after FAC=5 scaling)
-const FAC = 5;
+// Original rotation speeds from QBasic (FAC scaled down for slower motion)
+const FAC = 2;
 const ROTATION_STEP: RotationState = {
   xy: 0.0055 * FAC,
   xz: 0.0027 * FAC,
