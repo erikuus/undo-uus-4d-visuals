@@ -49,7 +49,7 @@ Original source files:
 
 Program catalog (archival overview):
 
-- [4D visualisation experiments catalog](archive/bas/4d-visualisation-experiments.md)
+- [4D visualisation experiments catalog](archive/bas/README.md)
 
 The catalog describes each program as an experimental stimulus, not as optimized or corrected code.
 
