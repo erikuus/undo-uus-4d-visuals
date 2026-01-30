@@ -1,6 +1,6 @@
 ' Neljadimensionaalse risttahuka po"o"rlemine
 ' neljadimensionaalses ruumis. Iga risttahuka
-' serv ka"sitsi lahti kirjutatud, mis vo"imaldab
+' serv ka"sitsi lahti kirjutatud, mis vo~imaldab
 ' kasutada maksimaalse hulga va"rve servade
 ' kuvamisel. (Programm optimeerimata.)
 
@@ -36,6 +36,7 @@ PALETTE 13, 54
 PALETTE 14, 62
 
 TWOPI = 6.2832
+
 FISTEREO = .15
 
 SCALEX = 80
@@ -86,77 +87,80 @@ APage% = 1
 VPage% = 0
 
 DO
-SCREEN 9, , APage%, VPage%
-CLS 1
+	SCREEN 9, , APage%, VPage%
+	CLS 1
 
 FOR I = 1 TO 2
 FOR J = 1 TO 2
 FOR K = 1 TO 2
 FOR L = 1 TO 2
-TIP4(1, J, K, L, 1) = A
-TIP4(2, J, K, L, 1) = -A
-TIP4(I, 1, K, L, 2) = B
-TIP4(I, 2, K, L, 2) = -B
-TIP4(I, J, 1, L, 3) = C
-TIP4(I, J, 2, L, 3) = -C
-TIP4(I, J, K, 1, 4) = D
-TIP4(I, J, K, 2, 4) = -D
+	TIP4(1, J, K, L, 1) = A
+	TIP4(2, J, K, L, 1) = -A
+	TIP4(I, 1, K, L, 2) = B
+	TIP4(I, 2, K, L, 2) = -B
+	TIP4(I, J, 1, L, 3) = C
+	TIP4(I, J, 2, L, 3) = -C
+	TIP4(I, J, K, 1, 4) = D
+	TIP4(I, J, K, 2, 4) = -D
 NEXT L
 NEXT K
 NEXT J
 NEXT I
 
 FOR M = 2 TO 4
-N1 = M - 1
-FOR N = 1 TO N1
-FI = F(M, N)
-FI = FI + DF(M, N)
-IF FI > TWOPI THEN FI = FI - TWOPI
-IF FI < 0! THEN FI = FI + TWOPI
-F(M, N) = FI
+	N1 = M - 1
+	FOR N = 1 TO N1
 
-SINUS = SIN(FI)
-COSINUS = COS(FI)
+		FI = F(M, N)
+		FI = FI + DF(M, N)
+		IF FI > TWOPI THEN FI = FI - TWOPI
+		IF FI < 0! THEN FI = FI + TWOPI
+		F(M, N) = FI
 
-FOR P = 1 TO 4
-FOR Q = 1 TO 4
-R(P, Q) = RI(P, Q)
-NEXT Q
-NEXT P
+		SINUS = SIN(FI)
+		COSINUS = COS(FI)
 
-R(M, M) = COSINUS
-R(N, N) = COSINUS
-R(M, N) = SINUS
-R(N, M) = -SINUS
+		FOR P = 1 TO 4
+		FOR Q = 1 TO 4
+		R(P, Q) = RI(P, Q)
+		NEXT Q
+		NEXT P
 
-FOR I = 1 TO 2
-FOR J = 1 TO 2
-FOR K = 1 TO 2
-FOR L = 1 TO 2
-FOR P = 1 TO 4
-TIP = 0!
-FOR Q = 1 TO 4
-TIP = TIP + R(P, Q) * TIP4(I, J, K, L, Q)
-NEXT Q
-TIP4N(I, J, K, L, P) = TIP
-NEXT P
-NEXT L
-NEXT K
-NEXT J
-NEXT I
+		R(M, M) = COSINUS
+		R(N, N) = COSINUS
+		R(M, N) = SINUS
+		R(N, M) = -SINUS
 
-FOR I = 1 TO 2
-FOR J = 1 TO 2
-FOR K = 1 TO 2
-FOR L = 1 TO 2
-FOR P = 1 TO 4
-TIP4(I, J, K, L, P) = TIP4N(I, J, K, L, P)
-NEXT P
-NEXT L
-NEXT K
-NEXT J
-NEXT I
-NEXT N
+		FOR I = 1 TO 2
+		FOR J = 1 TO 2
+		FOR K = 1 TO 2
+		FOR L = 1 TO 2
+		FOR P = 1 TO 4
+			TIP = 0!
+
+				FOR Q = 1 TO 4
+				TIP = TIP + R(P, Q) * TIP4(I, J, K, L, Q)
+				NEXT Q
+
+			TIP4N(I, J, K, L, P) = TIP
+		NEXT P
+		NEXT L
+		NEXT K
+		NEXT J
+		NEXT I
+
+		FOR I = 1 TO 2
+		FOR J = 1 TO 2
+		FOR K = 1 TO 2
+		FOR L = 1 TO 2
+		FOR P = 1 TO 4
+			TIP4(I, J, K, L, P) = TIP4N(I, J, K, L, P)
+		NEXT P
+		NEXT L
+		NEXT K
+		NEXT J
+		NEXT I
+	NEXT N
 NEXT M
 
 FOR I = 1 TO 2
@@ -164,7 +168,7 @@ FOR J = 1 TO 2
 FOR K = 1 TO 2
 FOR L = 1 TO 2
 FOR P = 1 TO 3
-TIP3(I, J, K, L, P) = TIP4(I, J, K, L, P)
+	TIP3(I, J, K, L, P) = TIP4(I, J, K, L, P)
 NEXT P
 NEXT L
 NEXT K
@@ -172,15 +176,16 @@ NEXT J
 NEXT I
 
 FOR ISTEREO = 1 TO 2
-IF ISTEREO = 1 THEN NSHIFTX = NXPIX / 4
-IF ISTEREO = 2 THEN NSHIFTX = NXPIX / 4 * 3
-NSHIFTY = NYPIX / 2
 
-IF ISTEREO = 1 THEN FI = .5 * FISTEREO
-IF ISTEREO = 2 THEN FI = TWOPI - .5 * FISTEREO
+	IF ISTEREO = 1 THEN NSHIFTX = NXPIX / 4
+	IF ISTEREO = 2 THEN NSHIFTX = NXPIX / 4 * 3
+	NSHIFTY = NYPIX / 2
 
-SINUS = SIN(FI)
-COSINUS = COS(FI)
+	IF ISTEREO = 1 THEN FI = .5 * FISTEREO
+	IF ISTEREO = 2 THEN FI = TWOPI - .5 * FISTEREO
+
+	SINUS = SIN(FI)
+	COSINUS = COS(FI)
 
 FOR I = 1 TO 2
 FOR J = 1 TO 2
@@ -197,8 +202,8 @@ FOR I = 1 TO 2
 FOR J = 1 TO 2
 FOR K = 1 TO 2
 FOR L = 1 TO 2
-T(I, J, K, L, 1) = TIP2(I, J, K, L, 1) * SCALEX + NSHIFTX
-T(I, J, K, L, 2) = TIP2(I, J, K, L, 2) * SCALEY + NSHIFTY
+	T(I, J, K, L, 1) = TIP2(I, J, K, L, 1) * SCALEX + NSHIFTX
+	T(I, J, K, L, 2) = TIP2(I, J, K, L, 2) * SCALEY + NSHIFTY
 NEXT L
 NEXT K
 NEXT J
@@ -274,6 +279,9 @@ YMMMM = T(2, 2, 2, 2, 2)
 32 LINE (XMMMP, YMMMP)-(XMMMM, YMMMM), 12
 
 NEXT ISTEREO
+
 SWAP APage%, VPage%
+
 LOOP WHILE INKEY$ = ""
+
 END

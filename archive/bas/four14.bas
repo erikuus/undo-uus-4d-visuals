@@ -1,4 +1,4 @@
-' Sirgjoone po"o"rlemine 4-D ruumis. W-sihis kaugemal 
+' Sirgjoone po"o"rlemine 4-D ruumis. W-sihis kaugemal
 ' olevad punktid ja jooned on heleduselt no~rgemad.
 
 DEFINT I-Q
@@ -60,6 +60,7 @@ DFYW = -.17
 DFZW = .11
 
 FAC = -.1
+
 DF(2, 1) = DFXY * FAC
 DF(3, 1) = DFXZ * FAC
 DF(3, 2) = DFYZ * FAC
@@ -68,82 +69,83 @@ DF(4, 2) = DFYW * FAC
 DF(4, 3) = DFZW * FAC
 
 FOR M = 2 TO 4
-    FOR N = 1 TO M - 1
-        F(M, N) = -DF(M, N)
-    NEXT N
+FOR N = 1 TO M - 1
+F(M, N) = -DF(M, N)
+NEXT N
 NEXT M
 
 '============================================================================
 
 DO
-    TIP4(1, 1) = A
-    TIP4(2, 1) = -A
-    FOR I = 1 TO 2
-        FOR Q = 2 TO 4
-            TIP4(I, Q) = 0!
-        NEXT Q
-    NEXT I
 
-    FOR M = 2 TO 4
-        FOR N = 1 TO M - 1
-            FI = F(M, N)
-            FI = FI + DF(M, N)
-            IF FI > TWOPI THEN FI = FI - TWOPI
-            IF FI < 0! THEN FI = FI + TWOPI
-            F(M, N) = FI
-            S = SIN(FI)
-            C = COS(FI)
-            FOR I = 1 TO 2
-                TIPM = TIP4(I, M) * C - TIP4(I, N) * S
-                TIPN = TIP4(I, M) * S + TIP4(I, N) * C
-                TIP4(I, M) = TIPM
-                TIP4(I, N) = TIPN
-            NEXT I
-        NEXT N
-    NEXT M
+TIP4(1, 1) = A
+TIP4(2, 1) = -A
+FOR I = 1 TO 2
+FOR Q = 2 TO 4
+TIP4(I, Q) = 0!
+NEXT Q
+NEXT I
 
-    FOR IST = 1 TO 2
-        NXSHIFT = NXS(IST)
-        FI = FIS(IST)
+FOR M = 2 TO 4
+    FOR N = 1 TO M - 1
+        FI = F(M, N)
+        FI = FI + DF(M, N)
+        IF FI > TWOPI THEN FI = FI - TWOPI
+        IF FI < 0! THEN FI = FI + TWOPI
+        F(M, N) = FI
         S = SIN(FI)
         C = COS(FI)
+
         FOR I = 1 TO 2
-            T(IST, I, 1) = TIP4(I, 1) * C - TIP4(I, 3) * S
-            T(IST, I, 2) = TIP4(I, 2)
+        TIPM = TIP4(I, M) * C - TIP4(I, N) * S
+        TIPN = TIP4(I, M) * S + TIP4(I, N) * C
+        TIP4(I, M) = TIPM
+        TIP4(I, N) = TIPN
         NEXT I
-    NEXT IST
+    NEXT N
+NEXT M
 
-    CLS 1
+FOR IST = 1 TO 2
+NXSHIFT = NXS(IST)
+FI = FIS(IST)
+S = SIN(FI)
+C = COS(FI)
+    FOR I = 1 TO 2
+    T(IST, I, 1) = TIP4(I, 1) * C - TIP4(I, 3) * S
+    T(IST, I, 2) = TIP4(I, 2)
+    NEXT I
+NEXT IST
 
-    FOR IPAINT = 1 TO NPAINT
-        FOR IST = 1 TO 2
-            NXSHIFT = NXS(IST)
-            CALL DOTLINE(T(IST, 1, 1), T(IST, 2, 1), T(IST, 1, 2), T(IST, 2, 2), TIP4(1, 4), TIP4(2, 4))
-        NEXT IST
-    NEXT IPAINT
+CLS 1
 
-    IF INKEY$ = "Q" THEN GOTO 9
-    SLEEP
+FOR IPAINT = 1 TO NPAINT
+FOR IST = 1 TO 2
+NXSHIFT = NXS(IST)
+CALL DOTLINE(T(IST, 1, 1), T(IST, 2, 1), T(IST, 1, 2), T(IST, 2, 2), TIP4(1, 4), TIP4(2, 4))
+NEXT IST
+NEXT IPAINT
+
+IF INKEY$ = "Q" THEN GOTO 9
+SLEEP
 LOOP
-
 9 END
 
 SUB DOTLINE (X1, X2, Y1, Y2, W1, W2)
-    DX = (X2 - X1) / NDOT
-    DY = (Y2 - Y1) / NDOT
-    DW = (W2 - W1) / NDOT
-    X = X1
-    Y = Y1
-    W = W1
-    FOR N = 1 TO NDOT
-        X = X + DX
-        Y = Y + DY
-        W = W + DW
-        IX = X * XSCALE + NXSHIFT
-        IY = Y * YSCALE + NYSHIFT
-        IW = W * WSCALE + 8
-        IF IW > 15 THEN IW = 15
-        IF IW < 1 THEN IW = 1
-        PSET (IX, IY), IW
-    NEXT N
+DX = (X2 - X1) / NDOT
+DY = (Y2 - Y1) / NDOT
+DW = (W2 - W1) / NDOT
+X = X1
+Y = Y1
+W = W1
+FOR N = 1 TO NDOT
+X = X + DX
+Y = Y + DY
+W = W + DW
+IX = X * XSCALE + NXSHIFT
+IY = Y * YSCALE + NYSHIFT
+IW = W * WSCALE + 8
+IF IW > 15 THEN IW = 15
+IF IW < 1 THEN IW = 1
+PSET (IX, IY), IW
+NEXT N
 END SUB

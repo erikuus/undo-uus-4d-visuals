@@ -26,9 +26,9 @@ PALETTE 4, 61
 
 IPAL = 1
 FOR I = 1 TO IMX
-    PAL(I) = IPAL
-    IPAL = IPAL + 1
-    IF IPAL = 5 THEN IPAL = IPAL - 4
+PAL(I) = IPAL
+IPAL = IPAL + 1
+IF IPAL = 5 THEN IPAL = IPAL - 4
 NEXT I
 
 DPI = 3.141592653589#
@@ -44,9 +44,9 @@ DFZW = 17.00573092632#
 FACD = 124.7354645891#
 
 FOR P = 1 TO 4
-    FOR Q = 1 TO 4
-        IF P = Q THEN RI(P, Q) = 1! ELSE RI(P, Q) = 0!
-    NEXT Q
+FOR Q = 1 TO 4
+IF P = Q THEN RI(P, Q) = 1! ELSE RI(P, Q) = 0!
+NEXT Q
 NEXT P
 
 DF(2, 1) = DFXY * FACD
@@ -57,66 +57,69 @@ DF(4, 2) = DFYW * FACD
 DF(4, 3) = DFZW * FACD
 
 FOR M = 1 TO 4
-    FOR N = 1 TO 4
-        F(M, N) = 0!
-    NEXT N
+FOR N = 1 TO 4
+F(M, N) = 0!
+NEXT N
 NEXT M
 
 FOR I = 1 TO IMX
-    T(1) = 1!
-    T(2) = .7
-    T(3) = .8
-    T(4) = .9
 
-    FOR M = 2 TO 4
-        FOR N = 1 TO M - 1
-            FI = F(M, N)
-            FI = FI + DF(M, N)
-5           IF FI < DTWOPI THEN
-                GOTO 6
-            ELSE
-                FI = FI - DTWOPI
-                GOTO 5
-            END IF
-6           IF FI > 0# THEN
-                GOTO 7
-            ELSE
-                FI = FI + DTWOPI
-                GOTO 6
-            END IF
-7           F(M, N) = FI
-            SFI = FI
-            SSIN = SIN(FI)
-            SCOS = COS(FI)
+T(1) = 1!
+T(2) = .7
+T(3) = .8
+T(4) = .9
 
-            FOR P = 1 TO 4
-                FOR Q = 1 TO 4
-                    R(P, Q) = RI(P, Q)
-                NEXT Q
-            NEXT P
+FOR M = 2 TO 4
+	FOR N = 1 TO M - 1
 
-            R(M, M) = SCOS
-            R(N, N) = SCOS
-            R(M, N) = SSIN
-            R(N, M) = -SSIN
+	FI = F(M, N)
+	FI = FI + DF(M, N)
+5   IF FI < DTWOPI THEN
+	GOTO 6
+	ELSE
+	FI = FI - DTWOPI
+	GOTO 5
+	END IF
+6 	IF FI > 0# THEN
+	GOTO 7
+	ELSE
+	FI = FI + DTWOPI
+	GOTO 6
+	END IF
+7	F(M, N) = FI
+	SFI = FI
+	SSIN = SIN(FI)
+	SCOS = COS(FI)
 
-            FOR P = 1 TO 4
-                TIP = 0!
-                FOR Q = 1 TO 4
-                    TIP = TIP + R(P, Q) * T(Q)
-                NEXT Q
-                TN(P) = TIP
-            NEXT P
+	FOR P = 1 TO 4
+	FOR Q = 1 TO 4
+	R(P, Q) = RI(P, Q)
+	NEXT Q
+	NEXT P
 
-            FOR P = 1 TO 4
-                T(P) = TN(P)
-            NEXT P
-        NEXT N
-    NEXT M
+	R(M, M) = SCOS
+	R(N, N) = SCOS
+	R(M, N) = SSIN
+	R(N, M) = -SSIN
 
-    FOR P = 1 TO 4
-        TA(I, P) = T(P)
-    NEXT P
+	FOR P = 1 TO 4
+		TIP = 0!
+			FOR Q = 1 TO 4
+			TIP = TIP + R(P, Q) * T(Q)
+			NEXT Q
+		TN(P) = TIP
+	NEXT P
+
+	FOR P = 1 TO 4
+		T(P) = TN(P)
+	NEXT P
+
+	NEXT N
+NEXT M
+
+FOR P = 1 TO 4
+TA(I, P) = T(P)
+NEXT P
 NEXT I
 
 ' XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -138,7 +141,7 @@ STSIN = SIN(FIH)
 STCOS = COS(FIH)
 
 FOR I = 1 TO IMX
-    IY(I) = TA(I, 2) * SCALEY + NSHIFTY
+IY(I) = TA(I, 2) * SCALEY + NSHIFTY
 NEXT I
 
 APage% = 1
@@ -147,32 +150,32 @@ VPage% = 0
 FI = 0#
 
 DO
-    SCREEN 9, , APage%, VPage%
-    CLS 1
+	SCREEN 9, , APage%, VPage%
+	CLS 1
 
-    FI = FI + DFXW
-    IF FI > DTWOPI THEN FI = FI - DTWOPI
-    IF FI < 0! THEN FI = FI + DTWOPI
-    SFI = FI
-    SSIN = SIN(FI)
-    SCOS = COS(FI)
+	FI = FI + DFXW
+	IF FI > DTWOPI THEN FI = FI - DTWOPI
+	IF FI < 0! THEN FI = FI + DTWOPI
+	SFI = FI
+	SSIN = SIN(FI)
+	SCOS = COS(FI)
 
-    FOR I = 1 TO IMX
-        W = TA(I, 4) * SCOS - TA(I, 1) * SSIN
-        IF W < 0! THEN GOTO 11
-        X = TA(I, 4) * SSIN + TA(I, 1) * SCOS
-        Z = TA(I, 3)
-        XL = X * STCOS + Z * STSIN
-        XR = X * STCOS - Z * STSIN
-        IXL = XL * SCALEX + NSHIFTXL
-        IXR = XR * SCALEX + NSHIFTXR
-        IY = IY(I)
-        PSET (IXL, IY), PAL(I)
-        PSET (IXR, IY), PAL(I)
+	FOR I = 1 TO IMX
+	W = TA(I, 4) * SCOS - TA(I, 1) * SSIN
+	IF W < 0! THEN GOTO 11
+	X = TA(I, 4) * SSIN + TA(I, 1) * SCOS
+	Z = TA(I, 3)
+	XL = X * STCOS + Z * STSIN
+	XR = X * STCOS - Z * STSIN
+	IXL = XL * SCALEX + NSHIFTXL
+	IXR = XR * SCALEX + NSHIFTXR
+	IY = IY(I)
+	PSET (IXL, IY), PAL(I)
+	PSET (IXR, IY), PAL(I)
 11  NEXT I
 
-    SWAP APage%, VPage%
-    IF INKEY$ = "q" THEN GOTO 999
-    ' SLEEP
+SWAP APage%, VPage%
+IF INKEY$ = "q" THEN GOTO 999
+' SLEEP
 LOOP
 999 END

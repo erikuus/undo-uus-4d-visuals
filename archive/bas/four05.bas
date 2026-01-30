@@ -56,119 +56,118 @@ VPage% = 0
 ' ============================================================
 
 DO
-  SCREEN 9, , APage%, VPage%
+	SCREEN 9, APage%, VPage%
 
-  FOR I = 1 TO 2
-  FOR J = 1 TO 2
-  FOR K = 1 TO 2
-    TIP4(I, J, K, 1) = AP
-    IF I = 2 THEN TIP4(I, J, K, 1) = AM
-    TIP4(I, J, K, 2) = AP
-    IF J = 2 THEN TIP4(I, J, K, 2) = AM
-    TIP4(I, J, K, 3) = AP
-    IF K = 2 THEN TIP4(I, J, K, 3) = AM
-    TIP4(I, J, K, 4) = 0!
-  NEXT K
-  NEXT J
-  NEXT I
+FOR I = 1 TO 2
+FOR J = 1 TO 2
+FOR K = 1 TO 2
+	TIP4(1, J, K, 1) = AP
+	TIP4(2, J, K, 1) = AM
+	TIP4(I, 1, K, 2) = AP
+	TIP4(I, 2, K, 2) = AM
+	TIP4(I, J, 1, 3) = AP
+	TIP4(I, J, 2, 3) = AM
+	TIP4(I, J, K, 4) = 0!
+NEXT K
+NEXT J
+NEXT I
 
-  ARROW(1) = AARROW
-  ARROW(2) = 0!
-  ARROW(3) = 0!
-  ARROW(4) = 0!
+ARROW(1) = AARROW
+ARROW(2) = 0!
+ARROW(3) = 0!
+ARROW(4) = 0!
 
-  FOR M = 2 TO 4
-    FOR N = 1 TO M - 1
-      FI = F(M, N)
-      FI = FI + DF(M, N)
-      IF FI > TWOPI THEN FI = FI - TWOPI
-      IF FI < 0! THEN FI = FI + TWOPI
-      F(M, N) = FI
-      S = SIN(FI)
-      C = COS(FI)
+FOR M = 2 TO 4
+	FOR N = 1 TO M - 1
+		FI = F(M, N)
+		FI = FI + DF(M, N)
+		IF FI > TWOPI THEN FI = FI - TWOPI
+		IF FI < 0! THEN FI = FI + TWOPI
+		F(M, N) = FI
+		S = SIN(FI)
+		C = COS(FI)
 
-      FOR I = 1 TO 2
-      FOR J = 1 TO 2
-      FOR K = 1 TO 2
-        TIPM = TIP4(I, J, K, M) * C - TIP4(I, J, K, N) * S
-        TIPN = TIP4(I, J, K, M) * S + TIP4(I, J, K, N) * C
-        TIP4(I, J, K, M) = TIPM
-        TIP4(I, J, K, N) = TIPN
-      NEXT K
-      NEXT J
-      NEXT I
+		FOR I = 1 TO 2
+		FOR J = 1 TO 2
+		FOR K = 1 TO 2
+		TIPM = TIP4(I, J, K, M) * C - TIP4(I, J, K, N) * S
+		TIPN = TIP4(I, J, K, M) * S + TIP4(I, J, K, N) * C
+		TIP4(I, J, K, M) = TIPM
+		TIP4(I, J, K, N) = TIPN
+		NEXT K
+		NEXT J
+		NEXT I
 
-      ARROWM = ARROW(M) * C - ARROW(N) * S
-      ARROWN = ARROW(M) * S + ARROW(N) * C
-      ARROW(M) = ARROWM
-      ARROW(N) = ARROWN
+		ARROWM = ARROW(M) * C - ARROW(N) * S
+		ARROWN = ARROW(M) * S + ARROW(N) * C
+		ARROW(M) = ARROWM
+		ARROW(N) = ARROWN
 
-    NEXT N
-  NEXT M
+	NEXT N
+NEXT M
 
-  CLS 1
+CLS 1
 
-  FOR ISTEREO = 1 TO 2
+FOR ISTEREO = 1 TO 2
 
-    IF ISTEREO = 1 THEN NXSHIFT = NXPIXELS / 4
-    IF ISTEREO = 2 THEN NXSHIFT = NXPIXELS / 4 * 3
-    NYSHIFT = NYPIXELS / 2
-    IF ISTEREO = 1 THEN FI = .5 * FISTEREO
-    IF ISTEREO = 2 THEN FI = -.5 * FISTEREO
-    S = SIN(FI)
-    C = COS(FI)
+IF ISTEREO = 1 THEN NXSHIFT = NXPIXELS / 4
+IF ISTEREO = 2 THEN NXSHIFT = NXPIXELS / 4 * 3
+NYSHIFT = NYPIXELS / 2
+IF ISTEREO = 1 THEN FI = .5 * FISTEREO
+IF ISTEREO = 2 THEN FI = -.5 * FISTEREO
+S = SIN(FI)
+C = COS(FI)
 
-    FOR I = 1 TO 2
-    FOR J = 1 TO 2
-    FOR K = 1 TO 2
-      TIP2(I, J, K, 1) = TIP4(I, J, K, 1) * C - TIP4(I, J, K, 3) * S
-      TIP2(I, J, K, 2) = TIP4(I, J, K, 2)
-    NEXT K
-    NEXT J
-    NEXT I
+	FOR I = 1 TO 2
+	FOR J = 1 TO 2
+	FOR K = 1 TO 2
+	TIP2(I, J, K, 1) = TIP4(I, J, K, 1) * C - TIP4(I, J, K, 3) * S
+	TIP2(I, J, K, 2) = TIP4(I, J, K, 2)
+	NEXT K
+	NEXT J
+	NEXT I
 
-    ARROW(1) = ARROW(1) * C - ARROW(3) * S
+	ARROW(1) = ARROW(1) * C - ARROW(3) * S
 
-    FOR I = 1 TO 2
-    FOR J = 1 TO 2
-    FOR K = 1 TO 2
-      T(I, J, K, 1) = TIP2(I, J, K, 1) * XSCALE + NXSHIFT
-      T(I, J, K, 2) = TIP2(I, J, K, 2) * YSCALE + NYSHIFT
-    NEXT K
-    NEXT J
-    NEXT I
+	FOR I = 1 TO 2
+	FOR J = 1 TO 2
+	FOR K = 1 TO 2
+	T(I, J, K, 1) = TIP2(I, J, K, 1) * XSCALE + NXSHIFT
+	T(I, J, K, 2) = TIP2(I, J, K, 2) * YSCALE + NYSHIFT
+	NEXT K
+	NEXT J
+	NEXT I
+	ARR(1) = ARROW(1) * XSCALE + NXSHIFT
+	ARR(2) = ARROW(2) * YSCALE + NYSHIFT
 
-    ARR(1) = ARROW(1) * XSCALE + NXSHIFT
-    ARR(2) = ARROW(2) * YSCALE + NYSHIFT
+FOR I1 = 1 TO 2
+FOR I2 = 1 TO 2
+LINE (T(1, I1, I2, 1), T(1, I1, I2, 2))-(T(2, I1, I2, 1), T(2, I1, I2, 2)), 1
+LINE (T(I1, 1, I2, 1), T(I1, 1, I2, 2))-(T(I1, 2, I2, 1), T(I1, 2, I2, 2)), 1
+LINE (T(I1, I2, 1, 1), T(I1, I2, 1, 2))-(T(I1, I2, 2, 1), T(I1, I2, 2, 2)), 1
+NEXT I2
+NEXT I1
 
-    FOR I1 = 1 TO 2
-    FOR I2 = 1 TO 2
-      LINE (T(1, I1, I2, 1), T(1, I1, I2, 2))-(T(2, I1, I2, 1), T(2, I1, I2, 2)), 1
-      LINE (T(I1, 1, I2, 1), T(I1, 1, I2, 2))-(T(I1, 2, I2, 1), T(I1, 2, I2, 2)), 1
-      LINE (T(I1, I2, 1, 1), T(I1, I2, 1, 2))-(T(I1, I2, 2, 1), T(I1, I2, 2, 2)), 1
-    NEXT I2
-    NEXT I1
+LINE (NXSHIFT, NYSHIFT)-(ARR(1), ARR(2))
 
-    LINE (NXSHIFT, NYSHIFT)-(ARR(1), ARR(2))
+FOR I = -2 TO 2
+FOR J = -2 TO 2
+IF I * J = 4 OR I * J = -4 THEN GOTO 5
+PSET (NXSHIFT + I, NYSHIFT + J), 2
+5 NEXT J
+NEXT I
 
-    FOR I = -2 TO 2
-    FOR J = -2 TO 2
-      IF I * J = 4 OR I * J = -4 THEN GOTO 5
-      PSET (NXSHIFT + I, NYSHIFT + J), 2
-    5 NEXT J
-    NEXT I
+NEXT ISTEREO
 
-  NEXT ISTEREO
+SWAP APage%, VPage%
 
-  SWAP APage%, VPage%
+IF INKEY$ = "Q" THEN GOTO 9
 
-  IF INKEY$ = "Q" THEN GOTO 9
-
-  A = 1!
-  FOR I = 1 TO 6000
-    A = A
-  NEXT I
-  ' SLEEP
+A = 1!
+FOR I = 1 TO 6000
+A = A
+NEXT I
+' SLEEP
 
 LOOP
 9 END

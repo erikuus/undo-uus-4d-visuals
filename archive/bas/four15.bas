@@ -1,4 +1,3 @@
-' QBasic: Programmid         four15.bas       Aug 2000
 ' 4-D kuubi po"o"rlemine 4-D ruumis. Kuubi servad on antud punktidena.
 ' Mida kaugemal neljandas dimensioonis punktid asuvad, seda no~rgema
 ' heledusega nad paistavad.
@@ -69,9 +68,9 @@ DF(4, 2) = DFYW * FAC
 DF(4, 3) = DFZW * FAC
 
 FOR M = 1 TO 4
-    FOR N = 1 TO 4
-        F(M, N) = -DF(M, N)
-    NEXT N
+FOR N = 1 TO 4
+F(M, N) = -DF(M, N)
+NEXT N
 NEXT M
 
 ' =====================================================================
@@ -82,42 +81,42 @@ FOR I = 1 TO 2
 FOR J = 1 TO 2
 FOR K = 1 TO 2
 FOR L = 1 TO 2
-    T4(1, J, K, L, 1) = A
-    T4(2, J, K, L, 1) = -A
-    T4(I, 1, K, L, 2) = A
-    T4(I, 2, K, L, 2) = -A
-    T4(I, J, 1, L, 3) = A
-    T4(I, J, 2, L, 3) = -A
-    T4(I, J, K, 1, 4) = A
-    T4(I, J, K, 2, 4) = -A
+	T4(1, J, K, L, 1) = A
+	T4(2, J, K, L, 1) = -A
+	T4(I, 1, K, L, 2) = A
+	T4(I, 2, K, L, 2) = -A
+	T4(I, J, 1, L, 3) = A
+	T4(I, J, 2, L, 3) = -A
+	T4(I, J, K, 1, 4) = A
+	T4(I, J, K, 2, 4) = -A
 NEXT L
 NEXT K
 NEXT J
 NEXT I
 
 FOR M = 2 TO 4
-FOR N = 1 TO M - 1
-    FI = F(M, N)
-    FI = FI + DF(M, N)
-    IF FI > TWOPI THEN FI = FI - TWOPI
-    IF FI < 0! THEN FI = FI + TWOPI
-    F(M, N) = FI
-    S = SIN(FI)
-    C = COS(FI)
+	FOR N = 1 TO M - 1
+		FI = F(M, N)
+		FI = FI + DF(M, N)
+		IF FI > TWOPI THEN FI = FI - TWOPI
+		IF FI < 0! THEN FI = FI + TWOPI
+		F(M, N) = FI
+		S = SIN(FI)
+		C = COS(FI)
 
-    FOR I = 1 TO 2
-    FOR J = 1 TO 2
-    FOR K = 1 TO 2
-    FOR L = 1 TO 2
-        TIPM = T4(I, J, K, L, M) * C - T4(I, J, K, L, N) * S
-        TIPN = T4(I, J, K, L, M) * S + T4(I, J, K, L, N) * C
-        T4(I, J, K, L, M) = TIPM
-        T4(I, J, K, L, N) = TIPN
-    NEXT L
-    NEXT K
-    NEXT J
-    NEXT I
-NEXT N
+		FOR I = 1 TO 2
+		FOR J = 1 TO 2
+		FOR K = 1 TO 2
+		FOR L = 1 TO 2
+		TIPM = T4(I, J, K, L, M) * C - T4(I, J, K, L, N) * S
+		TIPN = T4(I, J, K, L, M) * S + T4(I, J, K, L, N) * C
+		T4(I, J, K, L, M) = TIPM
+		T4(I, J, K, L, N) = TIPN
+		NEXT L
+		NEXT K
+		NEXT J
+		NEXT I
+	NEXT N
 NEXT M
 
 CLS 1
@@ -127,54 +126,54 @@ NXSHIFT = NXS(IST)
 FI = FIS(IST)
 S = SIN(FI)
 C = COS(FI)
-    FOR I = 1 TO 2
-    FOR J = 1 TO 2
-    FOR K = 1 TO 2
-    FOR L = 1 TO 2
-        T2(I, J, K, L, 1) = T4(I, J, K, L, 1) * C - T4(I, J, K, L, 3) * S
-        T2(I, J, K, L, 2) = T4(I, J, K, L, 2)
-    NEXT L
-    NEXT K
-    NEXT J
-    NEXT I
+	FOR I = 1 TO 2
+	FOR J = 1 TO 2
+	FOR K = 1 TO 2
+	FOR L = 1 TO 2
+	T2(I, J, K, L, 1) = T4(I, J, K, L, 1) * C - T4(I, J, K, L, 3) * S
+	T2(I, J, K, L, 2) = T4(I, J, K, L, 2)
+	NEXT L
+	NEXT K
+	NEXT J
+	NEXT I
 
-    FOR I1 = 1 TO 2
-    FOR I2 = 1 TO 2
-    FOR I3 = 1 TO 2
-        X1 = T2(1, I1, I2, I3, 1)
-        X2 = T2(2, I1, I2, I3, 1)
-        Y1 = T2(1, I1, I2, I3, 2)
-        Y2 = T2(2, I1, I2, I3, 2)
-        W1 = T4(1, I1, I2, I3, 4)
-        W2 = T4(2, I1, I2, I3, 4)
-        CALL DOTLINE(X1, X2, Y1, Y2, W1, W2)
+	FOR I1 = 1 TO 2
+	FOR I2 = 1 TO 2
+	FOR I3 = 1 TO 2
+		X1 = T2(1, I1, I2, I3, 1)
+		X2 = T2(2, I1, I2, I3, 1)
+		Y1 = T2(1, I1, I2, I3, 2)
+		Y2 = T2(2, I1, I2, I3, 2)
+		W1 = T4(1, I1, I2, I3, 4)
+		W2 = T4(2, I1, I2, I3, 4)
+		CALL DOTLINE(X1, X2, Y1, Y2, W1, W2)
 
-        X1 = T2(I1, 1, I2, I3, 1)
-        X2 = T2(I1, 2, I2, I3, 1)
-        Y1 = T2(I1, 1, I2, I3, 2)
-        Y2 = T2(I1, 2, I2, I3, 2)
-        W1 = T4(I1, 1, I2, I3, 4)
-        W2 = T4(I1, 2, I2, I3, 4)
-        CALL DOTLINE(X1, X2, Y1, Y2, W1, W2)
+		X1 = T2(I1, 1, I2, I3, 1)
+		X2 = T2(I1, 2, I2, I3, 1)
+		Y1 = T2(I1, 1, I2, I3, 2)
+		Y2 = T2(I1, 2, I2, I3, 2)
+		W1 = T4(I1, 1, I2, I3, 4)
+		W2 = T4(I1, 2, I2, I3, 4)
+		CALL DOTLINE(X1, X2, Y1, Y2, W1, W2)
 
-        X1 = T2(I1, I2, 1, I3, 1)
-        X2 = T2(I1, I2, 2, I3, 1)
-        Y1 = T2(I1, I2, 1, I3, 2)
-        Y2 = T2(I1, I2, 2, I3, 2)
-        W1 = T4(I1, I2, 1, I3, 4)
-        W2 = T4(I1, I2, 2, I3, 4)
-        CALL DOTLINE(X1, X2, Y1, Y2, W1, W2)
+		X1 = T2(I1, I2, 1, I3, 1)
+		X2 = T2(I1, I2, 2, I3, 1)
+		Y1 = T2(I1, I2, 1, I3, 2)
+		Y2 = T2(I1, I2, 2, I3, 2)
+		W1 = T4(I1, I2, 1, I3, 4)
+		W2 = T4(I1, I2, 2, I3, 4)
+		CALL DOTLINE(X1, X2, Y1, Y2, W1, W2)
 
-        X1 = T2(I1, I2, I3, 1, 1)
-        X2 = T2(I1, I2, I3, 2, 1)
-        Y1 = T2(I1, I2, I3, 1, 2)
-        Y2 = T2(I1, I2, I3, 2, 2)
-        W1 = T4(I1, I2, I3, 1, 4)
-        W2 = T4(I1, I2, I3, 2, 4)
-        CALL DOTLINE(X1, X2, Y1, Y2, W1, W2)
-    NEXT I3
-    NEXT I2
-    NEXT I1
+		X1 = T2(I1, I2, I3, 1, 1)
+		X2 = T2(I1, I2, I3, 2, 1)
+		Y1 = T2(I1, I2, I3, 1, 2)
+		Y2 = T2(I1, I2, I3, 2, 2)
+		W1 = T4(I1, I2, I3, 1, 4)
+		W2 = T4(I1, I2, I3, 2, 4)
+		CALL DOTLINE(X1, X2, Y1, Y2, W1, W2)
+	NEXT I3
+	NEXT I2
+	NEXT I1
 NEXT IST
 
 AD = 0!
