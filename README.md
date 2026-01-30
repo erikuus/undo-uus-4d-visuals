@@ -72,6 +72,22 @@ Scans of original documents:
 The scanned materials are preserved unchanged and are intended for historical
 verification rather than everyday reading.
 
+## Reference videos
+
+This repository also includes screen recordings of the original QBasic programs running in a DOS emulator.
+
+Each video corresponds to a `.bas` file in `archive/bas/` and shows the program executing with its original rendering logic, color palette, timing, and stereoscopic layout.
+
+The videos are intended to:
+
+- provide a visual reference without requiring emulator setup,
+- support validation of modern reconstructions,
+- document original behavior, pacing, and visual appearance.
+
+Reference videos:
+
+- [archive/videos/](archive/videos/)
+
 ## Modern reconstruction (web)
 
 To make these experiments accessible today, selected programs are being reconstructed for the web using modern technologies (TypeScript, Canvas/WebGL).

@@ -53,16 +53,19 @@ function showLanding() {
 
       <section class="intro">
         <p>
-          Humans experience a three-dimensional world even though the images formed on the retina are two-dimensional.
-          This is possible because the visual system detects invariant structure in changing projections — for example,
-          recognizing a rigid 3D object from a sequence of 2D views.
+          We are able to perceive a stable three-dimensional object from changing two-dimensional images—for
+          example when watching a film, a computer screen, or a rotating object rendered on a flat display.
+          Although only two-dimensional projections are presented, the perceptual system reconstructs a
+          coherent three-dimensional form.
         </p>
         <p class="question">
           These experiments explore a simple but unconventional question:
         </p>
         <p class="emphasis">
-          Could the same perceptual mechanism, when supplied with the right kind of input,
-          recognize a rigid four-dimensional object from dynamically changing three-dimensional projections?
+          If the perceptual system can recognize a stable three-dimensional structure in dynamically changing
+          two-dimensional projections, might it also—when supplied with genuine stereoscopic three-dimensional
+          input—recognize a stable four-dimensional structure—so that what initially appears as a changing
+          three-dimensional scene is instead experienced as a coherent four-dimensional form?
         </p>
         <p>
           The visualizations presented here are modern reconstructions of programs written by Undo Uus between
