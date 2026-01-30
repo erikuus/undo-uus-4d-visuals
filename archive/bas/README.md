@@ -18,21 +18,16 @@ This catalog is descriptive and archival. Program descriptions are based on dire
 
 - **Features:** Rotation planes XY/XZ/YZ/XW/YW/ZW, stereo split-screen with small XZ yaw, W used to find the minimum-W vertex and suppress its incident edges, loop-generated colored LINE wireframe, no explicit performance delay beyond page flipping.
 - **Experimental intent:** The code automates edge drawing and tries a visibility heuristic in 4D by skipping edges connected to the farthest W corner. This is a more algorithmic take on the tesseract with an eye toward hidden-edge handling. It remains unoptimized and color-focused.
-- **Relationship:** Conceptual predecessor of `archive/bas/four06.bas`; they are near-duplicates with the same hidden-edge heuristic.
+- **Relationship:** Closest to `archive/bas/four01.bas` in rotation and stereo setup, but with automated edge generation and a W-based edge suppression heuristic.
 
 #### [`archive/bas/four03.bas`](four03.bas)
 
 - **Features:** Rotation planes XY/XZ/YZ/XW/YW/ZW, stereo split-screen with small XZ yaw, W participates in rotation but is not directly encoded perceptually, monochrome LINE wireframe with center marker, dummy loop delay to stabilize frame pacing.
 - **Experimental intent:** This version optimizes the same all-edges view and trades color for speed, then adds a manual pause to keep motion readable on faster hardware. The added center dot pins the rotation visually while the stereo pair retains depth cues. It reads as a stability-oriented refinement.
 - **Relationship:** Closest to `archive/bas/four01.bas` (all edges visible) but optimized and monochrome with a frame-delay hack.
+- **Relationship:** Closest to `archive/bas/four01.bas` (all edges visible) but optimized and monochrome with a frame-delay hack.
 
-#### [`archive/bas/four06.bas`](four06.bas)
-
-- **Features:** Rotation planes XY/XZ/YZ/XW/YW/ZW, stereo split-screen with small XZ yaw, W used to pick the minimum-W vertex and skip its incident edges, monochrome LINE wireframe with center marker, dummy loop delay for pacing.
-- **Experimental intent:** This keeps the hidden-edge heuristic from the earlier automated version but tightens the code for speed and drops to monochrome. The dummy delay suggests the author wanted consistent playback across machines. It is a deliberate optimization pass rather than a conceptual change.
-- **Relationship:** Later optimized version of `archive/bas/four02.bas`; near-duplicate with monochrome palette and pacing loop.
-
-### 3D cube in 4D (mono wireframe)
+### 3D cube in 4D
 
 #### [`archive/bas/four04.bas`](four04.bas)
 
@@ -45,6 +40,12 @@ This catalog is descriptive and archival. Program descriptions are based on dire
 - **Features:** Rotation planes XY/XZ/YZ/XW/YW/ZW, stereo split-screen with small XZ yaw, W held at 0 for a 3D box embedded in 4D (not necessarily equal edge lengths), monochrome LINE wireframe plus a center-to-face arrow, dummy loop delay for pacing.
 - **Experimental intent:** This extends the 3D-in-4D cube by adding a direction arrow from the center to a face normal. The arrow helps track orientation drift as the cube is rotated in 4D. It reads as a visualization aid layered on the same base geometry.
 - **Relationship:** Closest to `archive/bas/four04.bas`; near-duplicate with added arrow vector and cube-specific setup.
+
+#### [`archive/bas/four06.bas`](four06.bas)
+
+- **Features:** Rotation planes XY/XZ/YZ/XW/YW/ZW, stereo split-screen with small XZ yaw, cube edges drawn as dot-sampled lines (`DOTLINE`), two opposite faces filled with a regular point grid in two colors, dummy loop delay for pacing.
+- **Experimental intent:** This shifts from wireframe-only depiction to a surface cue by painting two opposite faces as point fields while keeping edges visible. The strong face cue plus stereo suggests an experiment in improving orientation stability and 4D rotation legibility.
+- **Relationship:** Conceptually related to the 3D-in-4D cube wireframes (`archive/bas/four04.bas`, `archive/bas/four05.bas`), but trades line-only geometry for point-sampled faces.
 
 ### W-weighted line and edge experiments
 
