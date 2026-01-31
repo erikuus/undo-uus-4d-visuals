@@ -138,7 +138,7 @@ function showLanding() {
           ${Object.entries(visualizations)
             .map(
               ([id, vis]) => `
-            <a href="#${id}" class="vis-card">
+            <a href="#${id}" id="card-${id}" class="vis-card">
               <div class="vis-card-icon">${id === "four16" ? "◉" : id === "four02" ? "⬡" : id === "four03" ? "◇" : id === "four04" ? "□" : id === "four05" ? "→" : id === "four06" ? "∷" : id === "four14" ? "―" : id === "four15" ? "⬡" : "⬡"}</div>
               <h3>${vis.title}</h3>
               <p>${vis.description}</p>
@@ -158,6 +158,19 @@ function showLanding() {
       </footer>
     </div>
   `;
+
+  // Check if we should scroll to a specific card
+  const scrollTarget = sessionStorage.getItem("scrollToCard");
+  if (scrollTarget) {
+    sessionStorage.removeItem("scrollToCard");
+    const card = document.getElementById(`card-${scrollTarget}`);
+    if (card) {
+      // Use setTimeout to ensure DOM is ready
+      setTimeout(() => {
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 100);
+    }
+  }
 }
 
 function showVisualization(id: VisualizationId) {
@@ -168,7 +181,7 @@ function showVisualization(id: VisualizationId) {
   container.innerHTML = `
     <div class="container">
       <nav class="vis-nav">
-        <a href="#" class="back-link">← All Visualisations</a>
+        <a href="#" class="back-link" data-from="${id}">← All Visualisations</a>
       </nav>
       <h1>${vis.title}</h1>
       <p>${vis.description}</p>
@@ -187,6 +200,19 @@ function showVisualization(id: VisualizationId) {
 
   const resizeHandler = () => controller?.resize?.();
   window.addEventListener("resize", resizeHandler);
+
+  // Handle back link click to store scroll target
+  const backLink = container.querySelector(".back-link");
+  if (backLink) {
+    backLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const fromId = backLink.getAttribute("data-from");
+      if (fromId) {
+        sessionStorage.setItem("scrollToCard", fromId);
+      }
+      window.location.hash = "";
+    });
+  }
 
   // Store cleanup function
   (window as unknown as { __visCleanup?: () => void }).__visCleanup = () => {
