@@ -1,8 +1,24 @@
 import "./style.css";
 import { createVisualization as createSphereVis } from "./visualisations/four16-sphere-w-gate";
 import { createVisualization as createTesseractVis } from "./visualisations/four01-tesseract";
+import { createVisualization as createTesseractHiddenVis } from "./visualisations/four02-tesseract-hidden";
+import { createVisualization as createTesseractMonoVis } from "./visualisations/four03-tesseract-mono";
+import { createVisualization as createCubeIn4dVis } from "./visualisations/four04-cube-in-4d";
+import { createVisualization as createCubeArrowVis } from "./visualisations/four05-cube-arrow";
+import { createVisualization as createCubeDottedVis } from "./visualisations/four06-cube-dotted";
+import { createVisualization as createLineWDepthVis } from "./visualisations/four14-line-w-depth";
+import { createVisualization as createTesseractWDepthVis } from "./visualisations/four15-tesseract-w-depth";
 
-type VisualizationId = "four16" | "four01";
+type VisualizationId =
+  | "four01"
+  | "four02"
+  | "four03"
+  | "four04"
+  | "four05"
+  | "four06"
+  | "four14"
+  | "four15"
+  | "four16";
 
 const visualizations: Record<
   VisualizationId,
@@ -12,17 +28,59 @@ const visualizations: Record<
     description: string;
   }
 > = {
-  four16: {
-    create: createSphereVis,
-    title: "4D Sphere (S³) – W-Gated Stereo",
-    description:
-      "A 4D point cloud on the 3-sphere, with perceptual W-gate hiding half the space.",
-  },
   four01: {
     create: createTesseractVis,
     title: "4D Tesseract – Rotating Hyperrectangle",
     description:
       "A 4D rectangular parallelepiped rotating through all six 4D planes.",
+  },
+  four02: {
+    create: createTesseractHiddenVis,
+    title: "4D Tesseract – Hidden Edges",
+    description:
+      "A 4D hyperrectangle with automatic hidden edge removal based on W-coordinate depth.",
+  },
+  four03: {
+    create: createTesseractMonoVis,
+    title: "4D Tesseract – Asymmetric Monochrome",
+    description:
+      "An asymmetric 4D hyperrectangle with all edges visible, monochrome rendering.",
+  },
+  four04: {
+    create: createCubeIn4dVis,
+    title: "3D Cube in 4D Space",
+    description:
+      "A 3D rectangular parallelepiped rotating through 4D space, showing 4D rotations of a 3D object.",
+  },
+  four05: {
+    create: createCubeArrowVis,
+    title: "3D Cube with Arrow in 4D",
+    description:
+      "A 3D cube with an arrow perpendicular to one face, rotating through 4D space.",
+  },
+  four06: {
+    create: createCubeDottedVis,
+    title: "3D Cube – Dotted Edges & Faces",
+    description:
+      "A 3D cube with dotted edges and two opposite faces covered with colored dot grids.",
+  },
+  four14: {
+    create: createLineWDepthVis,
+    title: "1D Line – W-Depth Shading",
+    description:
+      "A straight line rotating in 4D space with brightness varying by W-coordinate depth.",
+  },
+  four15: {
+    create: createTesseractWDepthVis,
+    title: "4D Tesseract – W-Depth Shading",
+    description:
+      "A 4D tesseract with edges rendered as dotted lines, brightness varying by W-coordinate depth.",
+  },
+  four16: {
+    create: createSphereVis,
+    title: "4D Sphere (S³) – W-Gated Stereo",
+    description:
+      "A 4D point cloud on the 3-sphere, with perceptual W-gate hiding half the space.",
   },
 };
 
@@ -81,7 +139,7 @@ function showLanding() {
             .map(
               ([id, vis]) => `
             <a href="#${id}" class="vis-card">
-              <div class="vis-card-icon">${id === "four16" ? "◉" : "⬡"}</div>
+              <div class="vis-card-icon">${id === "four16" ? "◉" : id === "four02" ? "⬡" : id === "four03" ? "◇" : id === "four04" ? "□" : id === "four05" ? "→" : id === "four06" ? "∷" : id === "four14" ? "―" : id === "four15" ? "⬡" : "⬡"}</div>
               <h3>${vis.title}</h3>
               <p>${vis.description}</p>
             </a>
