@@ -1,4 +1,5 @@
 import "./style.css";
+import { initLandingExplainer } from "./explainer";
 import { createVisualization as createSphereVis } from "./visualisations/four16-sphere-w-gate";
 import { createVisualization as createTesseractVis } from "./visualisations/four01-tesseract";
 import { createVisualization as createTesseractHiddenVis } from "./visualisations/four02-tesseract-hidden";
@@ -123,7 +124,7 @@ function showLanding() {
           If the perceptual system can recognize a stable three-dimensional structure in dynamically changing
           two-dimensional projections, might it also—when supplied with genuine stereoscopic three-dimensional
           input—recognize a stable four-dimensional structure—so that what initially appears as a changing
-          three-dimensional scene is instead experienced as a coherent four-dimensional form?
+          three-dimensional scene is instead experienced as a coherent four-dimensional form?<span class="explainer-trigger-wrap"><button type="button" class="explainer-trigger" aria-haspopup="dialog" aria-controls="explainer-modal" aria-describedby="explainer-tooltip" aria-label="Open a short visual explanation of this idea">?</button><span id="explainer-tooltip" class="explainer-tooltip" role="tooltip">If this idea is hard to picture, open a short visual explanation.</span></span>
         </p>
         <p>
           The visualizations presented here are modern reconstructions of programs written by Undo Uus between
@@ -131,6 +132,38 @@ function showLanding() {
           four-dimensional rotations.
         </p>
       </section>
+
+      <div class="explainer-modal" id="explainer-modal" hidden>
+        <div class="explainer-modal__backdrop"></div>
+        <div class="explainer-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="explainer-modal-title">
+          <div class="explainer-modal__header">
+            <div class="explainer-modal__heading">
+              <h2 id="explainer-modal-title" class="explainer-modal__title">Visual Explanation</h2>
+              <div class="explainer-modal__indicator" aria-live="polite"></div>
+            </div>
+            <button type="button" class="explainer-modal__close" aria-label="Close explanation">×</button>
+          </div>
+
+          <div class="explainer-modal__body">
+            <div class="explainer-visual">
+              <button type="button" class="explainer-nav explainer-nav--prev" aria-label="Previous slide">←</button>
+              <div class="explainer-visual-card">
+                <canvas class="explainer-canvas" aria-hidden="true"></canvas>
+              </div>
+              <button type="button" class="explainer-nav explainer-nav--next" aria-label="Next slide">→</button>
+            </div>
+
+            <div class="explainer-slide">
+              <h3 class="explainer-slide__title"></h3>
+              <p class="explainer-slide__body"></p>
+              <p class="explainer-slide__prompt"></p>
+              <p class="explainer-slide__answer"></p>
+              <blockquote class="explainer-slide__quote" hidden></blockquote>
+              <p class="explainer-slide__footer" hidden></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <section class="experiments">
         <h2>Experiments</h2>
@@ -171,6 +204,9 @@ function showLanding() {
       }, 100);
     }
   }
+
+  (window as unknown as { __pageCleanup?: () => void }).__pageCleanup =
+    initLandingExplainer(container);
 }
 
 function showVisualization(id: VisualizationId) {
@@ -215,18 +251,18 @@ function showVisualization(id: VisualizationId) {
   }
 
   // Store cleanup function
-  (window as unknown as { __visCleanup?: () => void }).__visCleanup = () => {
+  (window as unknown as { __pageCleanup?: () => void }).__pageCleanup = () => {
     window.removeEventListener("resize", resizeHandler);
   };
 }
 
 function route() {
   // Cleanup previous visualization
-  const cleanup = (window as unknown as { __visCleanup?: () => void })
-    .__visCleanup;
+  const cleanup = (window as unknown as { __pageCleanup?: () => void })
+    .__pageCleanup;
   if (cleanup) {
     cleanup();
-    delete (window as unknown as { __visCleanup?: () => void }).__visCleanup;
+    delete (window as unknown as { __pageCleanup?: () => void }).__pageCleanup;
   }
 
   const visId = getVisIdFromHash();
