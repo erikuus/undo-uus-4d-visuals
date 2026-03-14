@@ -267,53 +267,63 @@ function drawShapeStudy(
   time: number,
 ): void {
   drawBackdrop(ctx, width, height);
-  const shapes = [
-    { x: 0.24, y: 0.28, seed: 0.4, stroke: PRIMARY_STROKE, fill: "rgba(223, 216, 206, 0.035)" },
-    { x: 0.52, y: 0.24, seed: 1.1, stroke: PRIMARY_STROKE, fill: "rgba(223, 216, 206, 0.035)" },
-    { x: 0.78, y: 0.34, seed: 2.2, stroke: PRIMARY_STROKE, fill: "rgba(223, 216, 206, 0.035)" },
-    { x: 0.28, y: 0.66, seed: 3.3, stroke: PRIMARY_STROKE, fill: "rgba(223, 216, 206, 0.03)" },
-    { x: 0.56, y: 0.62, seed: 4.1, stroke: PRIMARY_STROKE, fill: "rgba(223, 216, 206, 0.03)" },
-    { x: 0.78, y: 0.72, seed: 5.2, stroke: PRIMARY_STROKE, fill: "rgba(223, 216, 206, 0.03)" },
-  ];
   const baseSize = Math.min(width, height);
+  const centerX = width * 0.5;
+  const centerY = height * 0.53;
+  const scale = baseSize * 0.426;
+  const baseVertices = [
+    { x: -0.54, y: 0.18, seed: 0.4 },
+    { x: -0.12, y: 0.24, seed: 1.1 },
+    { x: -0.08, y: -0.2, seed: 2.2 },
+    { x: -0.48, y: -0.24, seed: 3.3 },
+    { x: -0.1, y: -0.58, seed: 4.1 },
+    { x: 0.34, y: -0.54, seed: 5.2 },
+    { x: 0.38, y: -0.14, seed: 6.3 },
+    { x: 0.34, y: 0.3, seed: 7.4 },
+    { x: -0.06, y: 0.56, seed: 8.5 },
+    { x: 0.72, y: 0.18, seed: 9.6 },
+    { x: 0.76, y: -0.24, seed: 10.7 },
+    { x: 0.34, y: -0.92, seed: 11.8 },
+    { x: 0.76, y: -0.66, seed: 12.9 },
+    { x: 0.72, y: 0.6, seed: 14.1 },
+  ];
+  const vertices = baseVertices.map((vertex, index) => ({
+    x:
+      centerX +
+      vertex.x * scale +
+      baseSize * smoothNoise(time * (0.36 + index * 0.03), vertex.seed) * 0.1,
+    y:
+      centerY +
+      vertex.y * scale +
+      baseSize *
+        smoothNoise(time * (0.31 + index * 0.035), vertex.seed + 0.7) *
+        0.1,
+  }));
+  const faces = [
+    [0, 1, 2, 3],
+    [3, 2, 5, 4],
+    [1, 6, 5, 2],
+    [8, 7, 1, 0],
+    [7, 9, 10, 6],
+    [5, 10, 12, 11],
+  ];
+  const fills = [
+    "rgba(223, 216, 206, 0.032)",
+    "rgba(223, 216, 206, 0.028)",
+    "rgba(223, 216, 206, 0.024)",
+    "rgba(223, 216, 206, 0.021)",
+    "rgba(223, 216, 206, 0.018)",
+    "rgba(223, 216, 206, 0.016)",
+  ];
 
-  shapes.forEach((shape) => {
-    const center = {
-      x: width * shape.x + width * 0.02 * smoothNoise(time * 0.34, shape.seed),
-      y:
-        height * shape.y +
-        height * 0.024 * smoothNoise(time * 0.29, shape.seed + 0.6),
-    };
-    const halfTopWidth =
-      baseSize *
-      sineRange(time, 0.81, shape.seed + 0.4, 0.016, 0.115);
-    const halfBottomWidth =
-      baseSize *
-      sineRange(time, 0.67, shape.seed + 1.2, 0.016, 0.128);
-    const halfLeftHeight =
-      baseSize *
-      sineRange(time, 0.73, shape.seed + 2, 0.014, 0.124);
-    const halfRightHeight =
-      baseSize *
-      sineRange(time, 0.88, shape.seed + 2.8, 0.014, 0.136);
-    const shearX = baseSize * smoothNoise(time * 0.58, shape.seed + 3.6) * 0.068;
-    const shearY = baseSize * smoothNoise(time * 0.52, shape.seed + 4.4) * 0.046;
-    const rotation = smoothNoise(time * 0.31, shape.seed + 5.1) * 0.9;
-
-    const polygon = [
-      { x: -halfTopWidth + shearX, y: -halfLeftHeight + shearY },
-      { x: halfTopWidth + shearX, y: -halfRightHeight - shearY },
-      { x: halfBottomWidth - shearX, y: halfRightHeight + shearY },
-      { x: -halfBottomWidth - shearX, y: halfLeftHeight - shearY },
-    ].map((point) => {
-      const rotated = rotatePoint(point, rotation);
-      return {
-        x: center.x + rotated.x,
-        y: center.y + rotated.y,
-      };
-    });
-
-    strokePolygon(ctx, polygon, shape.fill, shape.stroke, 1.25);
+  faces.forEach((face, index) => {
+    strokePolygon(
+      ctx,
+      face.map((vertexIndex) => vertices[vertexIndex]),
+      fills[index],
+      PRIMARY_STROKE,
+      1.25,
+    );
   });
 }
 
@@ -632,7 +642,7 @@ export const explainerSlides: ExplainerSlide[] = [
     body: "",
     prompt: "What do you see?",
     answer:
-      "Just six disconnected changing two-dimensional shapes.",
+      "Six connected changing two-dimensional shapes.",
     createAnimation: (canvas) => createCanvasAnimation(canvas, drawShapeStudy),
   },
   {
@@ -641,7 +651,7 @@ export const explainerSlides: ExplainerSlide[] = [
     body: "",
     prompt: "What are you seeing now?",
     answer:
-      "Again, the raw input is only changing 2D shapes. But perception recognizes them as one solid cube rotating in space. In other words, a flat display can still be seen as a 3D cube when its changing 2D shapes are mathematically correct projections of one rigid 3D form.",
+      "Again, six connected changing two-dimensional shapes. But perception recognizes them as one solid cube rotating in 3D space, because these changing 2D shapes are mathematically correct projections of one rigid 3D form.",
     createAnimation: (canvas) => createCanvasAnimation(canvas, drawInvariantCube),
   },
   {
